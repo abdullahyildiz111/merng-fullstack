@@ -8,3 +8,5 @@
 [1206/170614.875:ERROR:exception_snapshot_win.cc(99)] thread ID 740 not found in process
 [1206/170614.875:ERROR:process_reader_win.cc(123)] NtOpenThread: {Eriþim Yok} Bir iþlem bir nesneye eriþmek istedi, ancak istediði eriþimin haklarý kendisine verilmiþ deðil. (0xc0000022)
 [1206/170614.875:ERROR:exception_snapshot_win.cc(99)] thread ID 5548 not found in process
+[1207/144658.658:ERROR:directory_reader_win.cc(43)] FindFirstFile: Sistem belirtilen yolu bulamýyor. (0x3)
+[1207/154627.311:ERROR:directory_reader_win.cc(43)] FindFirstFile: Sistem belirtilen yolu bulamýyor. (0x3)
