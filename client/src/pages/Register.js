@@ -7,6 +7,7 @@ import gql from 'graphql-tag';
 import {useForm} from '../util/hooks';
 import {AuthContext} from '../context/auth';
 
+
 function Register(props) {
     const context= useContext(AuthContext);
     const [errors, setErrors] = useState({});
@@ -28,6 +29,7 @@ function Register(props) {
             },
 
             variables: values
+
         });
 
         function registerUser(){
