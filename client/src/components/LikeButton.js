@@ -14,20 +14,24 @@ function LikeButton({ user, post: { id, likeCount, likes } }) {
         else setLiked(false)
     }, [user, likes]);
 
-    const [likePost] = useMutation(LIKE_POST_MUTATION, {
-        variables: {postId: id}
-    });
+    const [likePost, {error}] = useMutation(LIKE_POST_MUTATION, {
+        variables: {postId: id},
+    
+        onError(err){
+         return err;
+         }
+        });
 
     const likeButton = user ? (
         liked ? (
-            <Button color="brown">
+            <Button color="blue">
                 <Icon name="heart" />
             </Button>
-        ) : (<Button color="brown" basic>
+        ) : (<Button color="blue" basic>
             <Icon name="heart" />
         </Button>)
     ) : (
-            <Button as={Link} to='/login' color="brown" basic>
+            <Button as={Link} to='/login' color="blue" basic>
                 <Icon name="heart" />
             </Button>
         )

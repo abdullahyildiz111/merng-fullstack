@@ -10,7 +10,7 @@ function PostForm() {
     const { values, onChange, onSubmit } = useForm(createPostCallback, {
         body: ''
     });
-
+    
     const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
         variables: values,
         update(proxy, result) {
