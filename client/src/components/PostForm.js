@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 
 import { useForm } from '../util/hooks';
 import { FETCH_POSTS_QUERY } from '../util/graphql';
+import MyPopup from '../util/MyPopup';
 
 function PostForm() {
     const { values, onChange, onSubmit } = useForm(createPostCallback, {
@@ -46,17 +47,18 @@ function PostForm() {
                     value={values.body}
                     error={error ? true : false}
                 />
+                <MyPopup content="Submit !">
                 <Button type="submit" color="teal">
                     Submit
                 </Button>
+                </MyPopup>
             </Form.Field>
         </Form>
         {error && (
             <div className="ui error message" style={{marginBottom:20}} >
                 {error.graphQLErrors[0].message}</div>
-        )}
+         )}
         </>
-       
     )
 }
 
