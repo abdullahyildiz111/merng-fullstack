@@ -15,12 +15,12 @@ function Home() {
 
     return (
         <div className="genislik">
-            <Grid columns={3}>
+            <Grid   >
                 <Grid.Row className="page-title">
                     <h1> Recent Posts</h1>
                 </Grid.Row>
                 <Grid.Row>
-                    {user && (<Grid.Column>
+                    {user && (<Grid.Column mobile={16} tablet={8} computer={5}>
                         <PostForm />
                     </Grid.Column>)}
 
@@ -29,7 +29,7 @@ function Home() {
                     ) : (
                             <Transition.Group>
                                 {post && post.map(post => (
-                                    <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
+                                    <Grid.Column mobile={16} tablet={8} computer={5} key={post.id} style={{ marginBottom: 20 }}>
                                         <PostCard post={post} />
                                     </Grid.Column>
                                 ))}

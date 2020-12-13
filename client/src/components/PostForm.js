@@ -50,8 +50,9 @@ function PostForm() {
                 <MyPopup content="Submit !">
                 <Button type="submit" color="teal">
                     Submit
-                </Button>
+                </Button >
                 </MyPopup>
+                <br></br><br></br><br></br><br></br>
             </Form.Field>
         </Form>
         {error && (
