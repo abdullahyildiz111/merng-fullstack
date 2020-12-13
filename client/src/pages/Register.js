@@ -1,6 +1,6 @@
 //import { values } from 'lodash';
 import React, { useState, useContext } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button , Grid} from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
@@ -37,7 +37,8 @@ function Register(props) {
         }
 
     return (
-        <div className="form-container">
+        <Grid centered>
+        <Grid.Column mobile={16} tablet={8} computer={6}>
             <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''} >
                 <h1>Register</h1>
                 <Form.Input
@@ -88,7 +89,8 @@ function Register(props) {
                     </ul>
                 </div>)}
            
-        </div>
+        </Grid.Column>
+        </Grid>
     )
 }
 

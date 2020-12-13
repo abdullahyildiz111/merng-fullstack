@@ -15,7 +15,7 @@ function Home() {
 
     return (
         <div className="genislik">
-            <Grid   >
+            <Grid  centered >
                 <Grid.Row className="page-title">
                     <h1> Recent Posts</h1>
                 </Grid.Row>

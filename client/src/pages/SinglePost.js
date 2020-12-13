@@ -51,17 +51,17 @@ function SinglePost(props) {
             getPost;
     
     postMarkup = (
-        <div className="genislik-yorum"><br></br><br></br>
-            <Grid >
+        //<div className="genislik-yorum"><br></br><br></br>
+            <Grid centered>
             <Grid.Row>
-                <Grid.Column width={2}>
+                <Grid.Column mobile={2} tablet={2} computer={2}>
                     <Image
                         float='right'
                         size='small'
                         src='https://react.semantic-ui.com/images/avatar/large/molly.png'
                     />
                 </Grid.Column>
-                <Grid.Column width={10}>
+                <Grid.Column mobile={14} tablet={12} computer={10}>
                     <Card fluid>
                         <Card.Content>
                             <Card.Header>
@@ -136,7 +136,7 @@ function SinglePost(props) {
                 </Grid.Column>
             </Grid.Row>
         </Grid>
-        </div>
+       // </div>
         
     )
 }
