@@ -123,7 +123,7 @@ mutation register(
             confirmPassword:$confirmPassword
         }
     ){
-        id email username createdAt token
+        id email username gender createdAt token
     }
 }
 `

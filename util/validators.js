@@ -1,5 +1,6 @@
 module.exports.validateRegisterInput = (
     username,
+    gender,
     email,
     password,
     confirmPassword
@@ -10,6 +11,9 @@ module.exports.validateRegisterInput = (
     }
     if (email.trim() === '') {
         errors.email = 'Email must not be empty';
+    }
+    if (gender.trim() === '') {
+        errors.gender = 'Gender must not be empty';
     }
     else {
         const regEx = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
