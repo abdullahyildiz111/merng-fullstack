@@ -65,6 +65,7 @@ module.exports = {
 
             const newUser = new User({
                 email,
+                gender,
                 username,
                 password,
                 createdAt: new Date().toISOString()

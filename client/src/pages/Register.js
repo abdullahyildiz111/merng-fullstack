@@ -28,7 +28,7 @@ function Register(props) {
   const [addUser, { loading }] = useMutation(REGİSTER_USER, {
     update(_, { data: { register: userData } }) {
       context.login(userData)
-      //props.history.push('/');
+      props.history.push('/');
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors)
@@ -109,6 +109,7 @@ function Register(props) {
 const REGİSTER_USER = gql`
 mutation register(
     $username:String!
+    $gender:String!
     $email:String!    
     $password:String!
     $confirmPassword:String!
@@ -116,6 +117,7 @@ mutation register(
     register(
         registerInput:{
             username:$username
+            gender:$gender
             email:$email
             password:$password
             confirmPassword:$confirmPassword
