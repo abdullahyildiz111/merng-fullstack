@@ -1,97 +1,109 @@
 //import { values } from 'lodash';
 import React, { useState, useContext } from 'react';
-import { Form, Button , Grid} from 'semantic-ui-react';
+import { Form, Button, Grid } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
-import {useForm} from '../util/hooks';
-import {AuthContext} from '../context/auth';
+import { useForm } from '../util/hooks';
+import { AuthContext } from '../context/auth';
+
+
 
 
 function Register(props) {
-    const context= useContext(AuthContext);
-    const [errors, setErrors] = useState({});
-    
-    const {onChange, onSubmit, values} = useForm(registerUser,{
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-    })
+  const context = useContext(AuthContext);
+  const [errors, setErrors] = useState({});
 
-    const [addUser, { loading }] = useMutation(REGİSTER_USER,{
-               update(_, {data: {register: userData }}) {
-                context.login(userData)
-                props.history.push('/');
-            },
-            onError(err) {
-                setErrors(err.graphQLErrors[0].extensions.exception.errors)
-            },
+  
 
-            variables: values
 
-        });
+  const { onChange, onSubmit, values } = useForm(registerUser, {
+    username: '',
+    gender: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
 
-        function registerUser(){
-            addUser();
-        }
+  const [addUser, { loading }] = useMutation(REGİSTER_USER, {
+    update(_, { data: { register: userData } }) {
+      context.login(userData)
+      //props.history.push('/');
+    },
+    onError(err) {
+      setErrors(err.graphQLErrors[0].extensions.exception.errors)
+    },
 
-    return (
-        <Grid centered>
-        <Grid.Column mobile={16} tablet={8} computer={6}>
-            <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''} >
-                <h1>Register</h1>
-                <Form.Input
-                    label="Username"
-                    placeholder="Username.."
-                    name="username"
-                    type='text'
-                    value={values.username}
-                    error={errors.username ? true : false}
-                    onChange={onChange} />
+    variables: values
 
-                <Form.Input
-                    label="Email"
-                    placeholder="Email..."
-                    name="email"
-                    type='email'
-                    value={values.email}
-                    error={errors.email ? true : false}
-                    onChange={onChange} />
+  });
 
-                <Form.Input
-                    label="Password"
-                    placeholder="Password.."
-                    name="password"
-                    type='password'
-                    value={values.password}
-                    error={errors.password ? true : false}
-                    onChange={onChange} />
+  function registerUser() {
+    addUser();
+    console.log(values)
+  }
 
-                <Form.Input
-                    label=" Confirm Password"
-                    placeholder=" Confiiirm Password.."
-                    name="confirmPassword"
-                    type='password'
-                    value={values.confirmPassword}
-                    error={errors.confirmPassword ? true : false}
-                    onChange={onChange} />
+  return (
+    <Grid centered>
+      <Grid.Column mobile={16} tablet={8} computer={6}>
+        <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''} >
+          <h1>Register</h1>
+          <Form.Input
+            label="Username"
+            placeholder="Username.."
+            name="username"
+            type='text'
+            error={errors.username ? true : false}
+            onChange={onChange} />
+          
+            <Form.Field  >
+                <label>Gender</label>
+                <select name="gender" onChange={onChange}>
+                  <option value="">Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </Form.Field>
+          
+          <Form.Input
+            label="Email"
+            placeholder="Email..."
+            name="email"
+            type='email'
+            error={errors.email ? true : false}
+            onChange={onChange} />
 
-                <Button type="submit" primary>
-                    Register
+          <Form.Input
+            label="Password"
+            placeholder="Password.."
+            name="password"
+            type='password'
+            error={errors.password ? true : false}
+            onChange={onChange} />
+
+          <Form.Input
+            label=" Confirm Password"
+            placeholder=" Confiiirm Password.."
+            name="confirmPassword"
+            type='password'
+            error={errors.confirmPassword ? true : false}
+            onChange={onChange} />
+
+          <Button type="submit" primary>
+            Register
                 </Button>
-                 </Form>
-                {Object.keys(errors).length > 0 && (<div className='ui error message'>
-                    <ul className='list'>
-                        {Object.values(errors).map(value => (
-                            <li key={value}>{value}</li>
-                        ))}
-                    </ul>
-                </div>)}
-           
-        </Grid.Column>
-        </Grid>
-    )
+        </Form>
+        {Object.keys(errors).length > 0 && (<div className='ui error message'>
+          <ul className='list'>
+            {Object.values(errors).map(value => (
+              <li key={value}>{value}</li>
+            ))}
+          </ul>
+        </div>)}
+
+      </Grid.Column>
+    </Grid>
+  )
 }
 
 const REGİSTER_USER = gql`
