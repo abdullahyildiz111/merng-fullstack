@@ -58,7 +58,7 @@ function Register(props) {
           
             <Form.Field  >
                 <label>Gender</label>
-                <select name="gender" onChange={onChange}>
+                <select name="gender" onChange={onChange} error={errors.gender ? true : false}>
                   <option value="">Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>

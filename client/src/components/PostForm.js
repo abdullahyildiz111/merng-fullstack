@@ -66,7 +66,7 @@ function PostForm() {
 const CREATE_POST_MUTATION = gql`
 mutation createPost($body: String!){
     createPost(body: $body){
-        id body createdAt username
+        id body gender createdAt username
     
     likes{
         id username createdAt
