@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
-import { Button, Card, Grid, Label, Image, Icon ,Form} from 'semantic-ui-react';
+import { Button, Card, Grid, Label, Image, Icon, Form } from 'semantic-ui-react';
 import moment from 'moment'
 
 import LikeButton from '../components/LikeButton';
@@ -14,29 +14,29 @@ function SinglePost(props) {
     const { user } = useContext(AuthContext);
     const commentInputRef = useRef(null)
 
-   const [comment, setComment] = useState('');
+    const [comment, setComment] = useState('');
 
-    const { data: { getPost }={} } = useQuery(FETCH_POST_QUERY, {
+    const { data: { getPost } = {} } = useQuery(FETCH_POST_QUERY, {
         variables: { postId },
-        onError(err){
+        onError(err) {
             return err
         }
     })
 
     const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
-        update(){
+        update() {
             setComment('');
             commentInputRef.current.blur();
         },
-        variables:{
+        variables: {
             postId,
             body: comment
         },
-        onError(err){
-                return err;
-                
+        onError(err) {
+            return err;
+
         }
-    }) 
+    })
 
     function deletePostCallback() {
         props.history.push('/')
@@ -47,99 +47,103 @@ function SinglePost(props) {
         postMarkup = <p>Loading post...</p>
     }
     else {
-        const { id, body, createdAt, username, comments, likes, likeCount, commentCount } =
+        const { id, body, createdAt, gender, username, comments, likes, likeCount, commentCount } =
             getPost;
-    
-    postMarkup = (
-        //<div className="genislik-yorum"><br></br><br></br>
+
+        postMarkup = (
+            //<div className="genislik-yorum"><br></br><br></br>
             <Grid centered>
-            <Grid.Row>
-                <Grid.Column mobile={2} tablet={2} computer={2}>
-                    <Image
-                        float='right'
-                        size='small'
-                        src='https://react.semantic-ui.com/images/avatar/large/molly.png'
-                    />
-                </Grid.Column>
-                <Grid.Column mobile={14} tablet={12} computer={10}>
-                    <Card fluid>
-                        <Card.Content>
-                            <Card.Header>
-                                {username}
-                            </Card.Header>
-                            <Card.Meta>
-                                {moment(createdAt).fromNow()}
-                            </Card.Meta>
-                            <Card.Description>
-                                {body}
-                            </Card.Description>
-                        </Card.Content>
-                        <hr />
-                        <Card.Content extra>
-                            <LikeButton user={user} post={{ id, likeCount, likes }} />
-                           <MyPopup content=" Comment on Post" >
-                           <Button as="div"
-                                labelPosition="right"
-                                onClick={() => console.log('gönderiye yorum')} >
-                            <Button basic color="blue">
-                                <Icon name="comments" />
-                            </Button>
-                            <Label basic color="blue" pointing="left">
-                                {commentCount}
-                            </Label>
-                            </Button>
-                           </MyPopup>
-                            {user && user.username === username && (
-                                <DeleteButton postId={id} callback={deletePostCallback} />
-                            )}
-                           
-                        </Card.Content>
-                    </Card>
-                    {user && (
-                        
-                            <Card fluid>
-                                <Card.Content>
-                        <p>Post a comment...</p>
-                        <Form>
-                            <div className="ui action input fluid">
-                                <input 
-                                 type="text"
-                                 placeholder="Comment.."
-                                 name="comment"
-                                 value={comment}
-                                 onChange={event => setComment(event.target.value)}
-                                 ref={commentInputRef}
-                                 />
-                                 <button type="submit"
-                                 className="ui button teal"
-                                 disabled={comment.trim() === 'kkk'}
-                                 onClick={submitComment} > Submit </button>
-                                 
-                            </div>
-                        </Form>
-                        </Card.Content>
-                        </Card>
-                        
-                    )}
-                    {comments.map(comment=>(
-                        <Card fluid key={comment.id}>
+                <Grid.Row>
+                    <Grid.Column mobile={2} tablet={2} computer={2}>
+                        {gender && (gender === 'male' ? (<Image
+                            floated='right'
+                            size='small'
+                            src='https://semantic-ui.com/images/avatar2/large/matthew.png'
+                        />) : (<Image
+                            floated='right'
+                            size='small'
+                            src='https://semantic-ui.com/images/avatar2/large/molly.png'
+                        />))}
+                    </Grid.Column>
+                    <Grid.Column mobile={14} tablet={12} computer={10}>
+                        <Card fluid>
                             <Card.Content>
-                            {user && user.username === comment.username && (
-                                <DeleteButton postId={id} commentId={comment.id} />
-                            )}
-                                <Card.Header>{comment.username} </Card.Header>
-                                <Card.Meta>{moment(comment.createdAt).fromNow()} </Card.Meta>
-                                <Card.Description>{comment.body} </Card.Description>
+                                <Card.Header>
+                                    {username}
+                                </Card.Header>
+                                <Card.Meta>
+                                    {moment(createdAt).fromNow()}
+                                </Card.Meta>
+                                <Card.Description>
+                                    {body}
+                                </Card.Description>
+                            </Card.Content>
+                            <hr />
+                            <Card.Content extra>
+                                <LikeButton user={user} post={{ id, likeCount, likes }} />
+                                <MyPopup content=" Comment on Post" >
+                                    <Button as="div"
+                                        labelPosition="right"
+                                        onClick={() => console.log('gönderiye yorum')} >
+                                        <Button basic color="blue">
+                                            <Icon name="comments" />
+                                        </Button>
+                                        <Label basic color="blue" pointing="left">
+                                            {commentCount}
+                                        </Label>
+                                    </Button>
+                                </MyPopup>
+                                {user && user.username === username && (
+                                    <DeleteButton postId={id} callback={deletePostCallback} />
+                                )}
+
                             </Card.Content>
                         </Card>
-                    ))}
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
-       // </div>
-        
-    )
-}
+                        {user && (
+
+                            <Card fluid>
+                                <Card.Content>
+                                    <p>Post a comment...</p>
+                                    <Form>
+                                        <div className="ui action input fluid">
+                                            <input
+                                                type="text"
+                                                placeholder="Comment.."
+                                                name="comment"
+                                                value={comment}
+                                                onChange={event => setComment(event.target.value)}
+                                                ref={commentInputRef}
+                                            />
+                                            <button type="submit"
+                                                className="ui button teal"
+                                                disabled={comment.trim() === 'kkk'}
+                                                onClick={submitComment} > Submit </button>
+
+                                        </div>
+                                    </Form>
+                                </Card.Content>
+                            </Card>
+
+                        )}
+                        {comments.map(comment => (
+                            <Card fluid key={comment.id}>
+                                <Card.Content>
+                                    {user && user.username === comment.username && (
+                                        <DeleteButton postId={id} commentId={comment.id} />
+                                    )}
+                                    <Card.Header>{comment.username} </Card.Header>
+                                    <Card.Meta>{moment(comment.createdAt).fromNow()} </Card.Meta>
+                                    <Card.Description>{comment.body} </Card.Description>
+                                </Card.Content>
+                            </Card>
+                        ))}
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+            // </div>
+
+        )
+    }
     return postMarkup;
 }
 
@@ -161,7 +165,7 @@ mutation ($postId: String!, $body: String!){
 const FETCH_POST_QUERY = gql`
 query ($postId:ID!){
     getPost(postId: $postId){
-        id body createdAt username likeCount
+        id body gender createdAt username likeCount
         likes {
             username
         }

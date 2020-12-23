@@ -7,7 +7,7 @@ likes{
 }
 commentCount
 comments{
-    id username createdAt body
+    id username  createdAt body
 }}}
 `
 ;

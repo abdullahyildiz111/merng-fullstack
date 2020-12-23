@@ -20,12 +20,16 @@ function PostCard({
 
     <Card fluid >
       <Card.Content>
-      <Image
+      {gender && (gender === 'male' ? (<Image
           floated='right'
           size='mini'
           src='https://semantic-ui.com/images/avatar2/large/matthew.png'
-        />
-        <Card.Header>{gender}</Card.Header>
+        /> ): (<Image
+        floated='right'
+        size='mini'
+        src='https://semantic-ui.com/images/avatar2/large/molly.png'
+      /> ))}
+        <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>{moment(createdAt).fromNow(true)}</Card.Meta>
         <Card.Description>
           {body}
